@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quadrant – Task Prioritization Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="cur" id="cur"></div><div class="sp" id="sp"></div><canvas id="cf"></canvas>
+
+<main id="auth"><div class="wrap">
+  <h1 class="hero" id="hero" aria-label="Do what matters first."></h1>
+  <p class="lead" style="margin:22px 0">Sort every task by urgency and importance, track progress, get reminders, and look back at what you finished.</p>
+  <div class="card authbox">
+    <div class="tabs" role="tablist"><button class="on" data-m="in" type="button">Sign in</button><button data-m="up" type="button">Create account</button></div>
+    <div id="fname" hidden><label>Name<input id="aName" autocomplete="name"><span class="err" id="eName"></span></label></div>
+    <label>Email<input id="aMail" type="email" autocomplete="email"><span class="err" id="eMail"></span></label>
+    <label>Password<input id="aPass" type="password" autocomplete="current-password"><span class="err" id="ePass"></span></label>
+    <button class="btn mag" id="aGo" type="button" style="width:100%">Sign in</button>
+    <p class="lead" style="font-size:.8rem;margin-top:12px">Accounts and tasks are saved in this browser only.</p>
+  </div>
+</div>
+<div class="marq" style="margin-top:30px"><div id="mq"></div></div></main>
+
+<div id="app">
+<header class="top"><div class="wrap row"><span class="logo">Quadrant</span><div style="display:flex;gap:8px;align-items:center"><span id="hi" class="lead"></span><button class="btn ghost sm" id="sm" type="button">Sample data</button><button class="btn ghost sm" id="ex" type="button">Export</button><button class="btn ghost sm" id="th" type="button">Theme</button><button class="btn ghost sm mag" id="out" type="button">Sign out</button></div></div></header>
+<div class="wrap">
+  <section class="stats" id="stats"></section>
+  <div class="rem" id="rem" role="status"></div>
+  <section class="charts" id="charts"></section>
+  <div class="tool">
+    <label class="grow">Search<input id="fq" type="search" placeholder="Title, note or category"></label>
+    <label>Status<select id="fs"><option value="">All</option><option value="todo">To do</option><option value="doing">In progress</option><option value="done">Done</option></select></label>
+    <label>Category<select id="fc"><option value="">All</option></select></label>
+    <label>Sort by<select id="so"><option value="due">Due date</option><option value="new">Newest</option><option value="prog">Progress</option><option value="az">Title A–Z</option></select></label>
+    <button class="btn mag" id="add" type="button" style="flex:0 0 auto">New task</button>
+  </div>
+  <div class="views" id="views" style="margin-bottom:16px"><button class="on" data-v="matrix" type="button">Matrix</button><button data-v="list" type="button">List</button><button data-v="hist" type="button">History</button></div>
+  <div id="main"></div>
+  <p class="lead" style="font-size:.85rem;margin-top:24px">Shortcuts: N adds a task, / searches, 1 2 3 switch views. Drag tasks between quadrants.</p><div style="height:60px"></div>
+</div></div>
+
+<dialog id="dlg"><form id="f" method="dialog" novalidate>
+  <h2 id="dt" style="margin-bottom:14px">New task</h2>
+  <input type="hidden" id="fid">
+  <label>Title<input id="ti" maxlength="80"><span class="err" id="e_ti"></span></label>
+  <label>Notes<textarea id="no" rows="2" maxlength="300"></textarea></label>
+  <div class="chk" style="margin-bottom:8px"><input type="checkbox" id="ur"><label for="ur" style="margin:0;color:var(--tx)">Urgent (needs action soon)</label></div>
+  <div class="chk" style="margin-bottom:12px"><input type="checkbox" id="im"><label for="im" style="margin:0;color:var(--tx)">Important (moves a real goal)</label></div>
+  <div class="two">
+    <label>Category<select id="ca"><option>Work</option><option>Personal</option><option>Study</option><option>Health</option><option>Finance</option><option>Other</option></select></label>
+    <label>Due date<input type="date" id="du"><span class="err" id="e_du"></span></label>
+    <label>Status<select id="st"><option value="todo">To do</option><option value="doing">In progress</option><option value="done">Done</option></select></label>
+    <label>Reminder<select id="rm"><option value="none">None</option><option value="0">On the due day</option><option value="1">1 day before</option><option value="3">3 days before</option></select></label>
+  </div>
+  <label>Progress: <b id="pv">0</b>%<input type="range" id="pr" min="0" max="100" step="5" value="0"></label>
+  <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn ghost" type="button" id="cx">Cancel</button><button class="btn" type="submit" id="sv">Save task</button></div>
+</form></dialog>
+<dialog id="xd"><h2 style="margin-bottom:10px">Export tasks</h2><textarea id="xt" rows="10" readonly></textarea><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px"><button class="btn ghost" type="button" id="xc">Close</button><button class="btn" type="button" id="xp">Copy CSV</button></div></dialog>
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
